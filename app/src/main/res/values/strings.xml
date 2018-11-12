@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">HomeWorkAndroid2</string>
+    <string name="new_item_name">Название</string>
+    <string name="priority">Приоритет</string>
 </resources>
