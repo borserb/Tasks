@@ -7,11 +7,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
-
 import java.util.Random;
-
 import com.example.admin.homeworkandroid2.Adpter.TaskAdapter;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rv.setLayoutManager(linearLayoutManager);
+
+
         TaskAdapter taskAdapter = new TaskAdapter(this, tasks, new TaskAdapter.OnTaskClickListner() {
             @Override
             public void onClick(Task task) {

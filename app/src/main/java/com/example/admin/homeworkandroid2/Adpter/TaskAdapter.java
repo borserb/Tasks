@@ -36,13 +36,18 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     @Override
     public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         LayoutInflater inflater = LayoutInflater.from(context);
+
         View view = inflater.inflate(R.layout.task_item, parent, false);
+
         final TaskViewHolder taskViewHolder = new TaskViewHolder(view);
 
         taskViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               onTaskClickListner.onClick(tasks.get(taskViewHolder.getAdapterPosition()));
+                final OnTaskClickListner onTaskClickListner = TaskAdapter.this.onTaskClickListner;
+                if (taskViewHolder.getAdapterPosition()!=RecyclerView.NO_POSITION) {
+                   onTaskClickListner.onClick(tasks.get(taskViewHolder.getAdapterPosition()));
+                }
             }
         });
 
