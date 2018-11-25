@@ -1,5 +1,7 @@
 package com.example.admin.homeworkandroid2;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
@@ -23,7 +25,7 @@ import android.widget.Toast;
 
 public class NewTaskActivity extends AppCompatActivity {
 
-
+public static final String NEW_TASK_KEY = "NEW_TASK_KEY";
     private EditText etTaskName;
     private ImageButton ibNewItem;
 
@@ -31,25 +33,25 @@ public class NewTaskActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
-
-        Spannable text = new SpannableString(getString(R.string.priority));
-        text.setSpan(new ForegroundColorSpan(getColor(R.color.redPoint)), 0, 1,  Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        text.setSpan(new ForegroundColorSpan(getColor(R.color.black_38)), 2, getString(R.string.priority).length(),  Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        text.setSpan(new StyleSpan(Typeface.BOLD), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        TextView textView = (TextView) findViewById(R.id.textViewPriority);
-        textView.setText(text);
-
         etTaskName=findViewById(R.id.etTaskName);
         ibNewItem=findViewById(R.id.ibNewItem);
 
+
         ibNewItem.setEnabled(false);
+
 
         ibNewItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(NewTaskActivity.this, "user click",Toast.LENGTH_SHORT).show();
+                Intent data = new Intent();
+                String taskName = etTaskName.getText().toString();
+                Task value = new Task(taskName,Color.RED);
+                data.putExtra(NEW_TASK_KEY, value);
+                NewTaskActivity.this.setResult(Activity.RESULT_OK, data);
+                NewTaskActivity.this.finish();
             }
         });
+
         etTaskName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

@@ -16,12 +16,9 @@ import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     @NonNull
-
-
     private final Context context;
     private List<Task> tasks;
     private final OnTaskClickListner onTaskClickListner;
-
 
     public TaskAdapter(@NonNull Context context, List<Task> tasks, OnTaskClickListner onTaskClickListner) {
         this.context = context;
@@ -29,7 +26,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
         this.onTaskClickListner = onTaskClickListner;
     }
 
-    public interface OnTaskClickListner{
+    public interface OnTaskClickListner {
         void onClick(Task task);
     }
 
@@ -45,8 +42,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
             @Override
             public void onClick(View v) {
                 final OnTaskClickListner onTaskClickListner = TaskAdapter.this.onTaskClickListner;
-                if (taskViewHolder.getAdapterPosition()!=RecyclerView.NO_POSITION) {
-                   onTaskClickListner.onClick(tasks.get(taskViewHolder.getAdapterPosition()));
+                if (taskViewHolder.getAdapterPosition() != RecyclerView.NO_POSITION) {
+                    onTaskClickListner.onClick(tasks.get(taskViewHolder.getAdapterPosition()));
                 }
             }
         });
@@ -55,25 +52,24 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     }
 
 
-
-
-
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int i) {
-    holder.SetData(tasks.get(i));
+        holder.SetData(tasks.get(i));
     }
-
-
-
-
-
 
     @Override
     public int getItemCount() {
         return tasks.size();
     }
-}
 
+
+    public void taskAdd(Task task) {
+        tasks.add(task);
+        notifyItemInserted(tasks.size() - 1);
+    }
+
+
+}
 
 
 class TaskViewHolder extends RecyclerView.ViewHolder {

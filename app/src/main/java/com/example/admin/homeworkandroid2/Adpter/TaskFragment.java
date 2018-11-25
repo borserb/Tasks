@@ -1,0 +1,87 @@
+package com.example.admin.homeworkandroid2.Adpter;
+
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.widget.Toast;
+
+import com.example.admin.homeworkandroid2.MainActivity;
+import com.example.admin.homeworkandroid2.NewTaskActivity;
+import com.example.admin.homeworkandroid2.R;
+import com.example.admin.homeworkandroid2.Task;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class TaskFragment extends Fragment {
+    private RecyclerView rv;
+    private List<Task> tasks = new ArrayList<>();
+    private FloatingActionButton fabAdd;
+    private TaskAdapter taskAdapter;
+    public static final int NEW_TASK_ACTIVITY = 101;
+
+    public TaskFragment() {
+    }
+
+    public static TaskFragment newInstance() {
+        return new TaskFragment();
+    }
+
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_tasks, container, false);
+        fabAdd = view.findViewById(R.id.fab_add_task);
+        recycleInit(view);
+
+
+
+
+/*        fabAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.this.startActivityForResult(new Intent(MainActivity.this, NewTaskActivity.class), NEW_TASK_ACTIVITY);
+            }
+        });*/
+
+        tasks.add(new Task("первый", 0));
+        return view;
+    }
+
+    private void recycleInit(View view){
+        rv=view.findViewById(R.id.rv);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        rv.setLayoutManager(linearLayoutManager);
+        taskAdapter = new TaskAdapter(getContext(), tasks, new TaskAdapter.OnTaskClickListner() {
+            @Override
+            public void onClick(Task task) {
+                Toast.makeText(getContext(),task.getName(),Toast.LENGTH_LONG).show();
+            }
+        });
+        rv.setAdapter(taskAdapter);
+    }
+
+
+/*    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==NEW_TASK_ACTIVITY && resultCode==Activity.RESULT_OK && data!=null){
+            Task task =((Task) data.getParcelableExtra(NewTaskActivity.NEW_TASK_KEY));
+            taskAdapter.taskAdd(task);
+        }
+    }*/
+
+
+
+}
