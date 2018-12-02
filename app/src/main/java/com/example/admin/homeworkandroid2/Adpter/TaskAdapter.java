@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,6 +70,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     }
 
 
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+        notifyDataSetChanged();
+    }
+
+
 }
 
 
@@ -84,6 +91,7 @@ class TaskViewHolder extends RecyclerView.ViewHolder {
         tvTask.setText(task.getName());
         tvMarker.setTextColor(task.getPriority());
         tvMarker.setText("●");
+
 
     }
 

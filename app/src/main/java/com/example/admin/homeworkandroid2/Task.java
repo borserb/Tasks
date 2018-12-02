@@ -1,17 +1,27 @@
 package com.example.admin.homeworkandroid2;
 
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+@Entity
 public class Task implements Parcelable {
-    private final String name;
-    private final int priority;
+
+    @PrimaryKey(autoGenerate = true)
+    public int id;
+    public final String name;
+    public final int priority;
 
 
     public Task(String name, int priority) {
         this.name = name;
         this.priority = priority;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {

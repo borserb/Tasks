@@ -1,25 +1,24 @@
 package com.example.admin.homeworkandroid2.Adpter;
 
 
-import android.app.Activity;
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.widget.Toast;
 
-import com.example.admin.homeworkandroid2.MainActivity;
+import com.example.admin.homeworkandroid2.AppDatabase;
 import com.example.admin.homeworkandroid2.NewTaskActivity;
 import com.example.admin.homeworkandroid2.R;
 import com.example.admin.homeworkandroid2.Task;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +36,10 @@ public class TaskFragment extends Fragment {
         return new TaskFragment();
     }
 
-
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,35 +47,47 @@ public class TaskFragment extends Fragment {
         fabAdd = view.findViewById(R.id.fab_add_task);
         recycleInit(view);
 
-
-
-
-/*        fabAdd.setOnClickListener(new View.OnClickListener() {
+        fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.this.startActivityForResult(new Intent(MainActivity.this, NewTaskActivity.class), NEW_TASK_ACTIVITY);
+                FragmentActivity activity = getActivity();
+                if (activity != null) {
+                    startActivityForResult(new Intent(getActivity(), NewTaskActivity.class), NEW_TASK_ACTIVITY);
+                }
             }
-        });*/
+        });
 
         tasks.add(new Task("первый", 0));
         return view;
     }
 
-    private void recycleInit(View view){
-        rv=view.findViewById(R.id.rv);
+    private void recycleInit(View view) {
+        rv = view.findViewById(R.id.rv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rv.setLayoutManager(linearLayoutManager);
         taskAdapter = new TaskAdapter(getContext(), tasks, new TaskAdapter.OnTaskClickListner() {
             @Override
             public void onClick(Task task) {
-                Toast.makeText(getContext(),task.getName(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), task.getName(), Toast.LENGTH_LONG).show();
             }
         });
         rv.setAdapter(taskAdapter);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        FragmentActivity activity = getActivity();
+        if (activity!=null){
+            final AppDatabase db = Room.databaseBuilder(activity, AppDatabase.class, "database-name").build();
+            taskAdapter.setTasks(db.taskDao().getAll());
 
-/*    @Override
+        }
+
+    }
+
+
+    /*    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==NEW_TASK_ACTIVITY && resultCode==Activity.RESULT_OK && data!=null){
@@ -81,7 +95,6 @@ public class TaskFragment extends Fragment {
             taskAdapter.taskAdd(task);
         }
     }*/
-
 
 
 }
