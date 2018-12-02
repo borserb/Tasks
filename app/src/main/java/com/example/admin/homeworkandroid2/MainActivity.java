@@ -3,6 +3,7 @@ package com.example.admin.homeworkandroid2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.admin.homeworkandroid2.Adpter.TaskFragment;
@@ -25,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tlTabs;
     private Toolbar toolbar;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
         vpTabs = findViewById(R.id.vpTabs);
         tlTabs = findViewById(R.id.tlTabs);
-
 
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         TabsFragmentAdapter adapter = new TabsFragmentAdapter(supportFragmentManager);
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             if (i == 0) {
                 return TaskFragment.newInstance();
             } else if (i == 1) {
-                return TaskFragment.newInstance();
+                return ProductivityFragment.newInstance();
             }
             return null;
         }

@@ -7,8 +7,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -28,7 +30,8 @@ public class NewTaskFragment extends Fragment {
     private TextView tvPriority;
     public static final String TAG = "NewTaskFragment";
     private int priority =0;
-
+    private int priorityColor;
+private String taskName;
 
     @Nullable
     @Override
@@ -50,8 +53,7 @@ public class NewTaskFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "Нажали на приоритет", Toast.LENGTH_LONG).show();
-                PriorityDialogFragment priorityDialogFragment = PriorityDialogFragment.newInstance();
-                priorityDialogFragment.show(getChildFragmentManager(),PriorityDialogFragment.TAG);
+
 
             }
         });
@@ -59,20 +61,13 @@ public class NewTaskFragment extends Fragment {
         ibNewItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String taskName = etTaskName.getText().toString();
-                Task task = new Task(taskName, Color.RED);
+                PriorityDialogFragment priorityDialogFragment = PriorityDialogFragment.newInstance();
+                priorityDialogFragment.show(getChildFragmentManager(),PriorityDialogFragment.TAG);
+
                 Toast.makeText(getContext(), "+", Toast.LENGTH_LONG).show();
-                 FragmentActivity activity = getActivity();
 
-                if (activity!=null){
-                            final AppDatabase db = Room.databaseBuilder(activity, AppDatabase.class, "database-name")
-                                   /* .allowMainThreadQueries()*/
-                                    .build();
-                            db.taskDao().inser(task);
 
-                }
-            }
-        });
+            }});
 
         etTaskName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -90,7 +85,7 @@ public class NewTaskFragment extends Fragment {
                 ibNewItem.setEnabled(!TextUtils.isEmpty(s));
             }
         });
-        Toast.makeText(getContext(), "Priority =" + priority, Toast.LENGTH_SHORT).show();
+        /*Toast.makeText(getContext(), "Priority =" + priority, Toast.LENGTH_SHORT).show();*/
         
     }
 
@@ -103,7 +98,21 @@ public class NewTaskFragment extends Fragment {
 
     public void onPriorityChosen(int priority) {
       this.priority = priority;
-        Toast.makeText(getContext(), "Priority =" + priority, Toast.LENGTH_SHORT).show();
+        taskName = etTaskName.getText().toString();
+
+        Toast.makeText(getContext(), "Fragment priority =" + priority, Toast.LENGTH_SHORT).show();
+
+        Task task = new Task(taskName, ContextCompat.getColor(getContext(),priority));
+
+        FragmentActivity activity = getActivity();
+        if (activity!=null){
+            final AppDatabase db = Room.databaseBuilder(activity, AppDatabase.class, "database-name")
+                    .allowMainThreadQueries()
+                    .build();
+            db.taskDao().inser(task);
+        }
+
+
     }
 }
 

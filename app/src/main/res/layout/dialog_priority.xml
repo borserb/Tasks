@@ -5,10 +5,100 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/dialog_priority">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+        <Button
+            android:layout_width="12dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:text=" "/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Приоритет"
+            android:textSize="20sp"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+        <Button
+            android:id="@+id/btnOk1"
+            android:layout_width="12dp"
+            android:layout_height="wrap_content"
+            android:background="@color/redPoint"
+            android:text=" "/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Приоритет1"
+            android:textSize="16sp"/>
+    </FrameLayout>
+    <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="48dp">
+    <Button
+        android:id="@+id/btnOk2"
+        android:layout_width="12dp"
+        android:layout_height="wrap_content"
+        android:background="@color/priority2"
+        android:text=" "/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Приоритет2"
+        android:textSize="16sp"/>
+</FrameLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+        <Button
+            android:id="@+id/btnOk3"
+            android:layout_width="12dp"
+            android:layout_height="wrap_content"
+            android:background="@color/priprity3"
+            android:text=" "/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Приоритет3"
+            android:textSize="16sp"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+        <Button
+            android:id="@+id/btnOk4"
+            android:layout_width="12dp"
+            android:layout_height="wrap_content"
+            android:background="@color/priority4"
+            android:text=" "/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Приоритет4"
+            android:textSize="16sp"/>
+    </FrameLayout>
+
+
+
+
+
+<!--
+
     <Button
         android:id="@+id/btnOk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ok"/>
+-->
 
 </LinearLayout>

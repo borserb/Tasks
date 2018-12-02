@@ -3,8 +3,10 @@ package com.example.admin.homeworkandroid2.Adpter;
 
 import android.arch.persistence.room.Room;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -28,6 +30,7 @@ public class TaskFragment extends Fragment {
     private FloatingActionButton fabAdd;
     private TaskAdapter taskAdapter;
     public static final int NEW_TASK_ACTIVITY = 101;
+    private ConstraintLayout fon;
 
     public TaskFragment() {
     }
@@ -46,6 +49,7 @@ public class TaskFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_tasks, container, false);
         fabAdd = view.findViewById(R.id.fab_add_task);
         recycleInit(view);
+        fon = view.findViewById(R.id.no_tasks_fon);
 
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +61,7 @@ public class TaskFragment extends Fragment {
             }
         });
 
-        tasks.add(new Task("первый", 0));
+       /* tasks.add(new Task("первый", 0));*/
         return view;
     }
 
@@ -79,22 +83,21 @@ public class TaskFragment extends Fragment {
         super.onResume();
         FragmentActivity activity = getActivity();
         if (activity!=null){
-            final AppDatabase db = Room.databaseBuilder(activity, AppDatabase.class, "database-name").build();
+            final AppDatabase db = Room.databaseBuilder(activity, AppDatabase.class, "database-name").allowMainThreadQueries().build();
             taskAdapter.setTasks(db.taskDao().getAll());
-
+            tasksViInv();
         }
 
     }
 
-
-    /*    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==NEW_TASK_ACTIVITY && resultCode==Activity.RESULT_OK && data!=null){
-            Task task =((Task) data.getParcelableExtra(NewTaskActivity.NEW_TASK_KEY));
-            taskAdapter.taskAdd(task);
+    public void tasksViInv() {
+        if (taskAdapter.getItemCount() < 1) {
+            fon.setVisibility(View.VISIBLE);
+        } else {
+            fon.setVisibility(View.INVISIBLE);
         }
-    }*/
+    }
+
 
 
 }

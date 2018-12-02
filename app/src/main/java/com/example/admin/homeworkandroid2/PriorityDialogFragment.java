@@ -37,13 +37,36 @@ public class PriorityDialogFragment extends DialogFragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Button btnOk =(Button) view.findViewById(R.id.btnOk);
-        btnOk.setOnClickListener(new View.OnClickListener() {
+
+        Button btnOk1 =(Button) view.findViewById(R.id.btnOk1);
+        Button btnOk2 =(Button) view.findViewById(R.id.btnOk2);
+        Button btnOk3 =(Button) view.findViewById(R.id.btnOk3);
+        Button btnOk4 =(Button) view.findViewById(R.id.btnOk4);
+
+        btnOk1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                priorityDialogListner.onPriorityChosen(10);
-                Toast.makeText(getContext(),"Click OK", Toast.LENGTH_LONG).show();                }
-        });
+                priorityDialogListner.onPriorityChosen(R.color.redPoint);
+                getActivity().onBackPressed();
+            }});
+        btnOk2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                priorityDialogListner.onPriorityChosen(R.color.priority2);
+                getActivity().onBackPressed();
+            }});
+        btnOk3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                priorityDialogListner.onPriorityChosen(R.color.priprity3);
+                getActivity().onBackPressed();
+            }});
+        btnOk4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                priorityDialogListner.onPriorityChosen(R.color.priority4);
+                getActivity().onBackPressed();
+            }});
 
         super.onViewCreated(view, savedInstanceState);
     }
