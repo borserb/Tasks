@@ -1,13 +1,14 @@
 package com.example.admin.homeworkandroid2.Adpter;
 
 import android.content.Context;
+
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.admin.homeworkandroid2.R;
 import com.example.admin.homeworkandroid2.Task;
@@ -16,12 +17,9 @@ import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     @NonNull
-
-
     private final Context context;
     private List<Task> tasks;
     private final OnTaskClickListner onTaskClickListner;
-
 
     public TaskAdapter(@NonNull Context context, List<Task> tasks, OnTaskClickListner onTaskClickListner) {
         this.context = context;
@@ -29,7 +27,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
         this.onTaskClickListner = onTaskClickListner;
     }
 
-    public interface OnTaskClickListner{
+    public interface OnTaskClickListner {
         void onClick(Task task);
     }
 
@@ -45,8 +43,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
             @Override
             public void onClick(View v) {
                 final OnTaskClickListner onTaskClickListner = TaskAdapter.this.onTaskClickListner;
-                if (taskViewHolder.getAdapterPosition()!=RecyclerView.NO_POSITION) {
-                   onTaskClickListner.onClick(tasks.get(taskViewHolder.getAdapterPosition()));
+                if (taskViewHolder.getAdapterPosition() != RecyclerView.NO_POSITION) {
+                    onTaskClickListner.onClick(tasks.get(taskViewHolder.getAdapterPosition()));
                 }
             }
         });
@@ -55,25 +53,30 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     }
 
 
-
-
-
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int i) {
-    holder.SetData(tasks.get(i));
+        holder.SetData(tasks.get(i));
     }
-
-
-
-
-
 
     @Override
     public int getItemCount() {
         return tasks.size();
     }
-}
 
+
+    public void taskAdd(Task task) {
+        tasks.add(task);
+        notifyItemInserted(tasks.size() - 1);
+    }
+
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+        notifyDataSetChanged();
+    }
+
+
+}
 
 
 class TaskViewHolder extends RecyclerView.ViewHolder {
@@ -87,7 +90,9 @@ class TaskViewHolder extends RecyclerView.ViewHolder {
     public void SetData(Task task) {
         tvTask.setText(task.getName());
         tvMarker.setTextColor(task.getPriority());
+        Log.d("ADDD",task.getName()+" "+task.priority);
         tvMarker.setText("●");
+
 
     }
 
