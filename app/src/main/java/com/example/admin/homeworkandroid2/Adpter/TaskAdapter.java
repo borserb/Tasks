@@ -75,6 +75,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
         notifyDataSetChanged();
     }
 
+    public void delTask(Task task){
+        notifyItemRemoved(task.getId());
+    }
+
+    public Task findTask(int position) {
+        return tasks.get(position);
+    }
+
 
 }
 
