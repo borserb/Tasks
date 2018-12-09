@@ -1,64 +1,112 @@
 package com.example.admin.homeworkandroid2;
 
-
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
+import android.app.SharedElementCallback;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.design.widget.TabLayout;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
-import java.util.Random;
-import com.example.admin.homeworkandroid2.Adpter.TaskAdapter;
-import java.util.ArrayList;
-import java.util.List;
+
+import com.example.admin.homeworkandroid2.Adpter.TaskFragment;
+import com.example.admin.homeworkandroid2.MVP.MainContract;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView rv;
-    private List<Task> tasks = new ArrayList<>();
-
+    private ViewPager vpTabs;
+    private TabLayout tlTabs;
+    private Toolbar toolbar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        rv=findViewById(R.id.rv);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        rv.setLayoutManager(linearLayoutManager);
+        vpTabs = findViewById(R.id.vpTabs);
+        tlTabs = findViewById(R.id.tlTabs);
 
-
-        TaskAdapter taskAdapter = new TaskAdapter(this, tasks, new TaskAdapter.OnTaskClickListner() {
-            @Override
-            public void onClick(Task task) {
-                Toast.makeText(MainActivity.this,task.getName(),Toast.LENGTH_LONG).show();
-
-            }
-        });
-        rv.setAdapter(taskAdapter);
-        createMockDate();
-            
-        }
-
-    private void createMockDate() {
-        Random rand = new Random();
-        for (int i = 0; i <50 ; i++) {
-            int r = rand.nextInt(254)+1;
-            int g = rand.nextInt(254)+1;
-            int b = rand.nextInt(254)+1;
-            int rgb = Color.rgb(r, g, b);
-            tasks.add(new Task("Выполнить задание №" + i, rgb));
-        }
-
-
-
-
+        FragmentManager supportFragmentManager = getSupportFragmentManager();
+        TabsFragmentAdapter adapter = new TabsFragmentAdapter(supportFragmentManager);
+        vpTabs.setAdapter(adapter);
+        tlTabs.setupWithViewPager(vpTabs);
 
 
     }
+
+
+
+    public static class TabsFragmentAdapter extends FragmentPagerAdapter {
+
+        public TabsFragmentAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int i) {
+            if (i == 0) {
+                return TaskFragment.newInstance();
+            } else if (i == 1) {
+                return ProductivityFragment.newInstance();
+            }
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            if (position == 0) {
+                return "Задачи";
+            } else if (position == 1) {
+                return "Продуктивность";
+            }
+            return null;
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.my_menu, menu);
+        return true;
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.mail_id) {
+            Toast.makeText(MainActivity.this, "Send mail", Toast.LENGTH_LONG).show();
+            Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+            emailIntent.setType("plain/text");
+            startActivity(emailIntent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
+
+
+
+
+
+
+
 
 
 
