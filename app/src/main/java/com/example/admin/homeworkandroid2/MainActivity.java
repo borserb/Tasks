@@ -1,6 +1,8 @@
 package com.example.admin.homeworkandroid2;
 
+import android.app.SharedElementCallback;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -14,11 +16,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.admin.homeworkandroid2.Adpter.TaskFragment;
+import com.example.admin.homeworkandroid2.MVP.MainContract;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager vpTabs;
     private TabLayout tlTabs;
     private Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 
 
     public static class TabsFragmentAdapter extends FragmentPagerAdapter {
@@ -83,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
         menuInflater.inflate(R.menu.my_menu, menu);
         return true;
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -38,34 +38,38 @@ public class PriorityDialogFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        Button btnOk1 =(Button) view.findViewById(R.id.btnOk1);
-        Button btnOk2 =(Button) view.findViewById(R.id.btnOk2);
-        Button btnOk3 =(Button) view.findViewById(R.id.btnOk3);
-        Button btnOk4 =(Button) view.findViewById(R.id.btnOk4);
+        View btnOk1 =view.findViewById(R.id.btnOk1);
+        View btnOk2 = view.findViewById(R.id.btnOk2);
+        View btnOk3 = view.findViewById(R.id.btnOk3);
+        View btnOk4 = view.findViewById(R.id.btnOk4);
+        View cancel = view.findViewById(R.id.cancel_priority);
 
         btnOk1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 priorityDialogListner.onPriorityChosen(R.color.redPoint);
-                getActivity().onBackPressed();
             }});
         btnOk2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 priorityDialogListner.onPriorityChosen(R.color.priority2);
-                getActivity().onBackPressed();
             }});
         btnOk3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 priorityDialogListner.onPriorityChosen(R.color.priprity3);
-                getActivity().onBackPressed();
             }});
         btnOk4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+              /*  Toast.makeText(getContext(), "Fragment priority =" + R.color.priority4, Toast.LENGTH_SHORT).show();*/
                 priorityDialogListner.onPriorityChosen(R.color.priority4);
-                getActivity().onBackPressed();
+            }});
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PriorityDialogFragment.super.dismiss();
+
             }});
 
         super.onViewCreated(view, savedInstanceState);
@@ -75,4 +79,5 @@ public class PriorityDialogFragment extends DialogFragment {
         PriorityDialogFragment fragment = new PriorityDialogFragment();
         return fragment;
     }
+
 }

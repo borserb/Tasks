@@ -7,13 +7,23 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 public class ProductivityFragment extends Fragment {
+    TextView textView;
+
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return (View) inflater.inflate(R.layout.product_fragmen, container, false);
+        View inflate = (View) inflater.inflate(R.layout.product_fragmen, container, false);
+        textView = inflate.findViewById(R.id.productivity_quantity);
+        textView.setText("Кол-во "+PersistantStorage.getProperty());
+        return  inflate;
     }
+
+
 
     public static ProductivityFragment newInstance() {
         Bundle args = new Bundle();
@@ -21,4 +31,6 @@ public class ProductivityFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
+
 }

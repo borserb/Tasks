@@ -26,8 +26,6 @@ public static final String NEW_TASK_KEY = "NEW_TASK_KEY";
             transaction.add(R.id.flContainer, NewTaskFragment.newInstance(), NewTaskFragment.TAG);
             transaction.commit();
         }
-
-
     }
 
     @Override

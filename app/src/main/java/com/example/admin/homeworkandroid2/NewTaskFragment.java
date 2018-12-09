@@ -29,8 +29,7 @@ public class NewTaskFragment extends Fragment {
     private ImageButton ibNewItem;
     private TextView tvPriority;
     public static final String TAG = "NewTaskFragment";
-    private int priority =0;
-    private int priorityColor;
+    private int priority = R.color.redPoint;
 private String taskName;
 
     @Nullable
@@ -52,8 +51,9 @@ private String taskName;
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Нажали на приоритет", Toast.LENGTH_LONG).show();
-
+                /*Toast.makeText(getContext(), "Нажали на приоритет", Toast.LENGTH_LONG).show();*/
+                PriorityDialogFragment priorityDialogFragment = PriorityDialogFragment.newInstance();
+                priorityDialogFragment.show(getChildFragmentManager(),PriorityDialogFragment.TAG);
 
             }
         });
@@ -61,15 +61,18 @@ private String taskName;
         ibNewItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PriorityDialogFragment priorityDialogFragment = PriorityDialogFragment.newInstance();
-                priorityDialogFragment.show(getChildFragmentManager(),PriorityDialogFragment.TAG);
-
-                Toast.makeText(getContext(), "+", Toast.LENGTH_LONG).show();
-
-
+                /*Toast.makeText(getContext(), "+", Toast.LENGTH_LONG).show();*/
+                Toast.makeText(getContext(), "Fragment priority =" + priority, Toast.LENGTH_SHORT).show();
+                taskName = etTaskName.getText().toString();
+                Task task = new Task(taskName, ContextCompat.getColor(getContext(),priority));
+                FragmentActivity activity = getActivity();
+                if (activity!=null){
+                    final AppDatabase db = Room.databaseBuilder(activity, AppDatabase.class, "database-name").allowMainThreadQueries().build();
+                    db.taskDao().inser(task);
+                }
             }});
 
-        etTaskName.addTextChangedListener(new TextWatcher() {
+            etTaskName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -98,20 +101,6 @@ private String taskName;
 
     public void onPriorityChosen(int priority) {
       this.priority = priority;
-        taskName = etTaskName.getText().toString();
-
-        Toast.makeText(getContext(), "Fragment priority =" + priority, Toast.LENGTH_SHORT).show();
-
-        Task task = new Task(taskName, ContextCompat.getColor(getContext(),priority));
-
-        FragmentActivity activity = getActivity();
-        if (activity!=null){
-            final AppDatabase db = Room.databaseBuilder(activity, AppDatabase.class, "database-name")
-                    .allowMainThreadQueries()
-                    .build();
-            db.taskDao().inser(task);
-        }
-
 
     }
 }
