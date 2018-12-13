@@ -1,9 +1,11 @@
 package com.example.admin.homeworkandroid2.MVP;
 
+import android.view.View;
+
 public interface MainContract {
 
     interface ViewShow {
-        void showText(int count);
+        void showText(View view);
     }
 
     interface ActivityListner {

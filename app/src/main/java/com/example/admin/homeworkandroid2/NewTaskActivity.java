@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.admin.homeworkandroid2.MVP.MainContract;
+
 public class NewTaskActivity extends AppCompatActivity implements PriorityDialogListner {
 
 public static final String NEW_TASK_KEY = "NEW_TASK_KEY";
@@ -36,4 +38,6 @@ public static final String NEW_TASK_KEY = "NEW_TASK_KEY";
         Toast.makeText(this, "Activity priority = " + priority, Toast.LENGTH_SHORT).show();
 
     }
+
+
 }

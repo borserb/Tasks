@@ -88,7 +88,17 @@
             android:textSize="16sp"/>
     </FrameLayout>
 
-
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+        <TextView
+            android:id="@+id/cancel_priority"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Отменв"
+            android:textSize="16sp"/>
+    </FrameLayout>
 
 
 

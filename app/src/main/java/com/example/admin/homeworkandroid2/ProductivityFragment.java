@@ -9,8 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.admin.homeworkandroid2.MVP.MainContract;
+
 public class ProductivityFragment extends Fragment {
     TextView textView;
+    private MainContract.Presenter mPresenter;
 
 
 
@@ -20,8 +23,11 @@ public class ProductivityFragment extends Fragment {
         View inflate = (View) inflater.inflate(R.layout.product_fragmen, container, false);
         textView = inflate.findViewById(R.id.productivity_quantity);
         textView.setText("Кол-во "+PersistantStorage.getProperty());
+
         return  inflate;
     }
+
+
 
 
 
@@ -31,6 +37,7 @@ public class ProductivityFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
 
 
 }
